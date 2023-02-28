@@ -1,0 +1,54 @@
+<html>
+<head><title>Test</title></head>
+<body>
+<form>
+    <table class="form-table">
+        <tr>
+            <td><label for="name">Name:</label></td>
+            <td><input type="text" id="name" name="name"></td>
+        </tr>
+        <tr>
+            <td><label for="message">Message:</label></td>
+            <td><textarea id="message" name="message"></textarea></td>
+        </tr>
+        <tr>
+            <td><label for="subscribe">Subscribe:</label></td>
+            <td><input type="checkbox" id="subscribe" name="subscribe"></td>
+        </tr>
+        <tr>
+            <td><label for="country">Country:</label></td>
+            <td>
+                <select id="country" name="country">
+                    <option value="USA">United States</option>
+                    <option value="CAN">Canada</option>
+                    <option value="MEX">Mexico</option>
+                </select>
+            </td>
+        </tr>
+    </table>
+</form>
+
+<style>
+    .form-table {
+        border-collapse: collapse;
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+    .form-table td {
+        padding: 10px;
+        border: 1px solid #ccc;
+        text-align: left;
+        vertical-align: middle;
+    }
+    .form-table td:first-child {
+        width: 150px;
+        font-weight: bold;
+    }
+    textarea {
+        height: 100px;
+        width: 100%;
+    }
+</style>
+</body>
+</html>
