@@ -18,6 +18,15 @@ public class ApplicationTest {
     }
 
     @Test
+    public void testSimpleHtmlToPdfLandScape() {
+        String outputFilePath = "src/test/resources/simple-landscape.pdf";
+        deleteFileIfExists(outputFilePath);
+        Application.main(new String[]{"src/test/resources/simple.html", outputFilePath, "-l"});
+
+        assertTrue(new File(outputFilePath).exists());
+    }
+
+    @Test
     public void testCssHtmlToPdf() {
         String outputFilePath = "src/test/resources/css.pdf";
         deleteFileIfExists(outputFilePath);

@@ -1,10 +1,19 @@
 package eu.htmltopdf.converter;
 
+import com.itextpdf.forms.PdfAcroForm;
+import com.itextpdf.forms.fields.PdfFormField;
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
 import com.itextpdf.html2pdf.attach.impl.layout.form.element.AbstractSelectField;
 import com.itextpdf.html2pdf.attach.impl.layout.form.renderer.SelectFieldComboBoxRenderer;
+import com.itextpdf.kernel.geom.Rectangle;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfPage;
+import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.renderer.DrawContext;
 import com.itextpdf.layout.renderer.IRenderer;
+
+import java.util.List;
+
 
 public class MySelectFieldComboBoxRenderer extends SelectFieldComboBoxRenderer {
     /**
@@ -26,28 +35,18 @@ public class MySelectFieldComboBoxRenderer extends SelectFieldComboBoxRenderer {
     @Override
     protected void applyAcroField(DrawContext drawContext) {
         String name = getModelId();
-//        UnitValue fontSize = (UnitValue) this.getPropertyAsUnitValue(Property.FONT_SIZE);
-//        if (!fontSize.isPointValue()) {
-//            Logger logger = LoggerFactory.getLogger(InputFieldRenderer.class);
-//            logger.error(MessageFormatUtil.format(IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED,
-//                    Property.FONT_SIZE));
-//        }
-//        final PdfDocument doc = drawContext.getDocument();
-//        final Rectangle area = flatRenderer.getOccupiedArea().getBBox().clone();
-//        final PdfPage page = doc.getPage(occupiedArea.getPageNumber());
-//        final float fontSizeValue = fontSize.getValue();
-//
-//        FormsMetaInfoStaticContainer.useMetaInfoDuringTheAction(getMetaInfo(), () -> {
-//            final PdfFormField inputField = PdfFormField.createText(doc, area, name, value, font, fontSizeValue);
-//            if (password) {
-//                inputField.setFieldFlag(PdfFormField.FF_PASSWORD, true);
-//            } else {
-//                inputField.setDefaultValue(new PdfString(value));
-//            }
-//            applyDefaultFieldProperties(inputField);
-//            PdfAcroForm.getAcroForm(doc, true).addField(inputField, page);
-//        });
-//
-//        writeAcroFormFieldLangAttribute(doc);
+        final PdfDocument doc = drawContext.getDocument();
+        final Rectangle area = occupiedArea.getBBox().clone();
+
+        final PdfPage page = doc.getPage(occupiedArea.getPageNumber());
+        List<IBlockElement> options = ((MyComboBoxField) getModelElement()).getOptions();
+
+        String[][] listOptions = new String[options.size()][2];
+        for (IBlockElement option : options) {
+            listOptions[options.indexOf(option)][1] = option.getProperty(Html2PdfProperty.FORM_FIELD_VALUE);
+            listOptions[options.indexOf(option)][0] = option.getProperty(Html2PdfProperty.FORM_FIELD_LABEL);
+        }
+        final PdfFormField listField = PdfFormField.createComboBox(doc, area, name, listOptions[0][1], listOptions);
+        PdfAcroForm.getAcroForm(doc, true).addField(listField, page);
     }
 }
