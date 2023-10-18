@@ -28,7 +28,8 @@ public class Application {
 
         ConverterProperties converterProperties = new ConverterProperties();
         converterProperties.setCreateAcroForm(true);
-        converterProperties.setTagWorkerFactory(new MyFactory());
+//        converterProperties.setTagWorkerFactory(new MyFactory());
+//        converterProperties.setFontProvider(new DefaultFontProvider(true, true, true));
 
         String inputHtmlFile = args[0];
         String outputPdfFile = args[1];

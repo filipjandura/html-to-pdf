@@ -1,6 +1,7 @@
 package eu.htmltopdf.converter;
 
-import com.itextpdf.html2pdf.attach.impl.layout.form.element.ComboBoxField;
+//import com.itextpdf.html2pdf.attach.impl.layout.form.element.ComboBoxField;
+import com.itextpdf.forms.form.element.ComboBoxField;
 import com.itextpdf.layout.renderer.IRenderer;
 
 public class MyComboBoxField extends ComboBoxField {

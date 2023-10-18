@@ -1,10 +1,12 @@
 package eu.htmltopdf.converter;
 
+import com.itextpdf.forms.form.element.AbstractSelectField;
+import com.itextpdf.forms.form.element.ListBoxField;
 import com.itextpdf.html2pdf.attach.ITagWorker;
 import com.itextpdf.html2pdf.attach.ProcessorContext;
 import com.itextpdf.html2pdf.attach.impl.layout.Html2PdfProperty;
-import com.itextpdf.html2pdf.attach.impl.layout.form.element.AbstractSelectField;
-import com.itextpdf.html2pdf.attach.impl.layout.form.element.ListBoxField;
+//import com.itextpdf.html2pdf.attach.impl.layout.form.element.AbstractSelectField;
+//import com.itextpdf.html2pdf.attach.impl.layout.form.element.ListBoxField;
 import com.itextpdf.html2pdf.attach.impl.tags.IDisplayAware;
 import com.itextpdf.html2pdf.attach.impl.tags.OptGroupTagWorker;
 import com.itextpdf.html2pdf.attach.impl.tags.OptionTagWorker;
@@ -15,6 +17,9 @@ import com.itextpdf.layout.IPropertyContainer;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.styledxmlparser.css.util.CssDimensionParsingUtils;
 import com.itextpdf.styledxmlparser.node.IElementNode;
+
+import static com.itextpdf.forms.form.FormProperty.FORM_ACCESSIBILITY_LANGUAGE;
+import static com.itextpdf.forms.form.FormProperty.FORM_FIELD_FLATTEN;
 
 public class MySelectTagWorker implements ITagWorker, IDisplayAware {
     /**
@@ -41,8 +46,8 @@ public class MySelectTagWorker implements ITagWorker, IDisplayAware {
             selectElement = new MyComboBoxField(name); //Overrides default implementation
         }
         String lang = element.getAttribute(AttributeConstants.LANG);
-        selectElement.setProperty(Html2PdfProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
-        selectElement.setProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, !context.isCreateAcroForm());
+        selectElement.setProperty(FORM_ACCESSIBILITY_LANGUAGE, lang);
+        selectElement.setProperty(FORM_FIELD_FLATTEN, !context.isCreateAcroForm());
         display = element.getStyles() != null ? element.getStyles().get(CssConstants.DISPLAY) : null;
     }
 
